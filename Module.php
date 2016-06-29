@@ -9,10 +9,6 @@ namespace ZF\ContentNegotiation;
 use Zend\Loader\StandardAutoloader;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\DispatchableInterface;
-use ZF\ContentNegotiation\AcceptListener;
-use ZF\ContentNegotiation\AcceptFilterListener;
-use ZF\ContentNegotiation\ContentTypeFilterListener;
-use ZF\ContentNegotiation\ContentTypeListener;
 
 class Module
 {
