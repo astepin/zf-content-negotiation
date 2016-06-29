@@ -6,9 +6,11 @@
 
 namespace ZF\ContentNegotiation\Factory;
 
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use ZF\ContentNegotiation\Validator\UploadFile;
 
-class UploadFileValidatorFactory
+class UploadFileValidatorFactory implements FactoryInterface
 {
     /**
      * @var null|array|\Traversable
@@ -26,15 +28,16 @@ class UploadFileValidatorFactory
     /**
      * Create an UploadFile instance
      *
-     * @param \Zend\Validator\ValidatorPluginManager $validators
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param array $options
      * @return UploadFile
      */
-    public function __invoke($validators)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $services  = $validators->getServiceLocator();
         $validator = new UploadFile($this->creationOptions);
-        if ($services->has('Request')) {
-            $validator->setRequest($services->get('Request'));
+        if ($container->has('Request')) {
+            $validator->setRequest($container->get('Request'));
         }
         return $validator;
     }

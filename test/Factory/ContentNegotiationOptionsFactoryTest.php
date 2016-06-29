@@ -25,7 +25,7 @@ class ContentNegotiationOptionsFactoryTest extends TestCase
 
         $factory = new ContentNegotiationOptionsFactory();
 
-        $service = $factory->createService($serviceManager);
+        $service = $factory($serviceManager, '');
 
         $this->assertInstanceOf('ZF\ContentNegotiation\ContentNegotiationOptions', $service);
     }

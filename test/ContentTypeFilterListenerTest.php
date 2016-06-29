@@ -10,11 +10,21 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\EventManager\EventManager;
 use Zend\Http\Request;
 use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
+use Zend\Router\RouteMatch;
 use ZF\ContentNegotiation\ContentTypeFilterListener;
 
 class ContentTypeFilterListenerTest extends TestCase
 {
+    /**
+     * @var ContentTypeFilterListener
+     */
+    private $listener;
+
+    /**
+     * @var MvcEvent
+     */
+    private $event;
+
     public function setUp()
     {
         $this->listener   = new ContentTypeFilterListener();
@@ -58,17 +68,6 @@ class ContentTypeFilterListenerTest extends TestCase
         $response = $this->listener->onRoute($this->event);
         $this->assertInstanceOf('ZF\ApiProblem\ApiProblemResponse', $response);
         $this->assertContains('Invalid content-type', $response->getApiProblem()->detail);
-    }
-
-    public function testAttachesToDispatchEventAtHighPriority()
-    {
-        $events = new EventManager();
-        $this->listener->attach($events);
-        $listeners = $events->getListeners('route');
-        $this->assertEquals(1, count($listeners));
-        $this->assertTrue($listeners->hasPriority(-625));
-        $callback = $listeners->getIterator()->current()->getCallback();
-        $this->assertEquals([$this->listener, 'onRoute'], $callback);
     }
 
     /**

@@ -17,7 +17,15 @@
         "issues": "https://github.com/zfcampus/zf-content-negotiation/issues"
     },
     "repositories": [
-        { "type": "composer", "url": "https://packages.zendframework.com" }
+        { "type": "composer", "url": "https://packages.zendframework.com" },
+        {
+            "type": "vcs",
+            "url": "https://github.com/astepin/zf-api-problem"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/astepin/zf-hal"
+        }
     ],
     "extra": {
         "branch-alias": {
@@ -26,23 +34,24 @@
         }
     },
     "require": {
-        "php": "^5.5",
-        "zendframework/zend-eventmanager": "^2.3",
-        "zendframework/zend-filter": "^2.3",
-        "zendframework/zend-http": "^2.3",
-        "zendframework/zend-json": "^2.3",
-        "zendframework/zend-mvc": "^2.3",
-        "zendframework/zend-servicemanager": "^2.3",
-        "zendframework/zend-stdlib": "^2.3",
-        "zendframework/zend-validator": "^2.3",
-        "zendframework/zend-view": "^2.3",
-        "zfcampus/zf-api-problem": "^1.0"
+        "php": "^5.6 || ^7.0",
+        "zendframework/zend-eventmanager": "^3.0",
+        "zendframework/zend-filter": "^2.7",
+        "zendframework/zend-http": "^2.5",
+        "zendframework/zend-console": "^2.6",
+        "zendframework/zend-json": "^3.0",
+        "zendframework/zend-mvc": "^3.0",
+        "zendframework/zend-servicemanager": "^3.1",
+        "zendframework/zend-stdlib": "^3.0",
+        "zendframework/zend-validator": "^2.8",
+        "zendframework/zend-view": "^2.8",
+        "zfcampus/zf-api-problem": "dev-master"
     },
     "require-dev": {
         "phpunit/PHPUnit": "^4.8",
         "squizlabs/php_codesniffer": "^2.3.1",
-        "zendframework/zend-loader": "^2.3",
-        "zfcampus/zf-hal": "^1.0"
+        "zendframework/zend-loader": "^2.5",
+        "zfcampus/zf-hal": "dev-master"
     },
     "suggest": {
         "zendframework/zend-console": "^2.3, if you intend to use the RequestFactory"

@@ -9,19 +9,17 @@ use Zend\ServiceManager\ServiceManager;
 
 class RenameUploadFilterFactoryTest extends TestCase
 {
+    /**
+     * @var FilterPluginManager
+     */
     protected $filters;
 
     protected function setUp()
     {
-        $config = new Config(
-            [
-                'factories' => [
-                    'filerenameupload' => 'ZF\ContentNegotiation\Factory\RenameUploadFilterFactory',
-                ],
-            ]
-        );
-        $this->filters = new FilterPluginManager($config);
-        $this->filters->setServiceLocator(new ServiceManager());
+        $serviceManager = new ServiceManager();
+        $serviceManager->setFactory('filerenameupload', 'ZF\ContentNegotiation\Factory\RenameUploadFilterFactory');
+
+        $this->filters = new FilterPluginManager($serviceManager);
     }
 
     public function testMultipleFilters()

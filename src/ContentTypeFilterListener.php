@@ -24,10 +24,11 @@ class ContentTypeFilterListener extends AbstractListenerAggregate
 
     /**
      * @param  EventManagerInterface $events
+     * @param int $priority
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManagerInterface $events, $priority = -625)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_ROUTE, [$this, 'onRoute'], -625);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_ROUTE, [$this, 'onRoute'], $priority);
     }
 
     /**
@@ -51,12 +52,12 @@ class ContentTypeFilterListener extends AbstractListenerAggregate
     public function onRoute(MvcEvent $e)
     {
         if (empty($this->config)) {
-            return;
+            return null;
         }
 
         $controllerName = $e->getRouteMatch()->getParam('controller');
         if (!isset($this->config[$controllerName])) {
-            return;
+            return null;
         }
 
         // Only worry about content types on HTTP methods that submit content
@@ -64,13 +65,13 @@ class ContentTypeFilterListener extends AbstractListenerAggregate
         $request = $e->getRequest();
         if (!method_exists($request, 'getHeaders')) {
             // Not an HTTP request; nothing to do
-            return;
+            return null;
         }
 
         $requestBody = (string) $request->getContent();
 
         if (empty($requestBody)) {
-            return;
+            return null;
         }
 
         $headers = $request->getHeaders();

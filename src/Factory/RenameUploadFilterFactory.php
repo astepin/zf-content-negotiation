@@ -6,12 +6,13 @@
 
 namespace ZF\ContentNegotiation\Factory;
 
+use Interop\Container\ContainerInterface;
 use Traversable;
 use Zend\Filter\FilterPluginManager;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use ZF\ContentNegotiation\Filter\RenameUpload;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
 
-class RenameUploadFilterFactory implements MutableCreationOptionsInterface
+class RenameUploadFilterFactory implements FactoryInterface
 {
     /**
      * @var null|array|Traversable
@@ -37,15 +38,16 @@ class RenameUploadFilterFactory implements MutableCreationOptionsInterface
     /**
      * Create a RenameUpload instance
      *
-     * @param  FilterPluginManager $filters
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param array $options
      * @return RenameUpload
      */
-    public function __invoke(FilterPluginManager $filters)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $services = $filters->getServiceLocator();
         $filter   = new RenameUpload($this->creationOptions);
-        if ($services->has('Request')) {
-            $filter->setRequest($services->get('Request'));
+        if ($container->has('Request')) {
+            $filter->setRequest($container->get('Request'));
         }
 
         return $filter;
